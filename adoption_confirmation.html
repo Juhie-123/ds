@@ -1,0 +1,14 @@
+<!-- adoption_confirmation.html -->
+
+{% extends "base.html" %}
+{% block title %}Adoption Confirmation{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="confirmation-section">
+        <h2>Adoption Confirmation</h2>
+        <p>Adoption confirmed! Thank you for giving a home to a furry friend.</p>
+        <p><a href="{{ url_for('home') }}">Back to Home</a></p>
+    </div>
+</div>
+{% endblock %}

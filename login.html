@@ -1,0 +1,63 @@
+{% extends "base.html" %} 
+{% block title %}Login{% endblock %} 
+{% block content %}
+  <body style="background-image: url('/static/login_bg.jpg'); background-size: cover; background-position: center; height: 100vh; display: flex; align-items: center; justify-content: center;">
+    <div class="card" style="width: 300px; padding: 20px; background-color: rgba(255, 255, 255); animation: fadeIn 1s;">
+      <img src="/static/petlogo.png" alt="Paw Logo" style="width: 50px; height: 50px; margin-bottom: 20px;">
+      <h3 class="text-center">Pet Login</h3>
+      <form method="POST" id="loginForm" action="{{ url_for('login') }}">
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            name="email"
+            placeholder="Enter email"
+          />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            name="password"
+            placeholder="Enter password"
+          />
+        </div>
+        {% if questions %}
+        <div class="form-group">
+            <!-- Include random_question here for Pylance -->
+            {{ random_question }}
+            <label for="answer">{{ questions|random }}</label>
+            <input
+            type="text"
+            class="form-control"
+            id="answer"
+            name="answer"
+            placeholder="Enter your answer"
+            />
+        </div>
+        {% endif %}
+
+        <!-- Add reCAPTCHA widget -->
+        <div class="g-recaptcha" data-sitekey="6LddK48oAAAAANWq8b3ygub2QtxAMOUgte42SL3O"></div>
+        <br />
+        <button type="submit" class="btn btn-primary btn-block">Login</button>
+      </form>
+    </div>
+    <!-- Include reCAPTCHA script -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  </body>
+  <style>
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
+{% endblock %}

@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block title %}adopt_confirm{% endblock %}
+
+{% block content %}
+<!-- Include Bootstrap CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f2f4f3;
+    }
+
+    .confirmation-section {
+        background-color: #3498db;
+        color: #fff;
+        padding: 50px;
+        text-align: center;
+        border-radius: 15px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-top: 50px;
+    }
+
+    .otp-form {
+        max-width: 400px;
+        margin: auto;
+        background-color: #ecf0f1;
+        border: 1px solid #bdc3c7;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .otp-input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+    }
+
+    .confirm-btn {
+        background-color: #2ecc71;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+    }
+
+    .resend-link {
+        color: #fff;
+        text-decoration: underline;
+        cursor: pointer;
+        display: block;
+        margin-top: 10px;
+    }
+</style>
+
+<div class="container">
+    <div class="confirmation-section">
+        <h2>Adoption Confirmation</h2>
+        <p>Enter the OTP displayed on your Google Autheticator app to confirm adoption.</p>
+
+        <!-- Display the original OTP on the page -->
+        {% if img_data %}
+                <p>Please scan the QR with your Google Autheticator app</p>
+                <img id="originalOTP" class="alert alert-info" src="data:image/png;base64,{{ img_data }}" alt="QR Code" />
+        {% endif %}
+
+        <form method="post" class="otp-form" action="{{ url_for('valid_otp', pet_type=pet_type, pet_id=pet_id) }}">
+            <div class="form-group">
+                <input type="text" name="otp" class="form-control otp-input" placeholder="Enter OTP" required>
+            </div>
+            <button type="submit" class="btn btn-primary confirm-btn">Confirm Adoption</button>
+        </form>
+
+        <p>Didn't receive the Authetication QR? <a href="#" id="resendLink" class="resend-link">Regenerate QR</a></p>
+    </div>
+</div>
+
+<!-- Include Bootstrap JS and jQuery -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<style>
+    /* Add custom styles here */
+    .welcome-section {
+        background-color: #f7f8f9;
+        color: #0e0d0d;
+        padding: 50px;
+        text-align: center;
+    }
+
+    .available-section {
+        margin-top: 30px;
+    }
+
+    .pet-card {
+        background-color: #ecf0f1;
+        border: 1px solid #bdc3c7;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        overflow: hidden;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .pet-card:hover {
+        transform: scale(1.05);
+    }
+
+    .adopt-btn {
+        background-color: #2ecc71;
+        color: #fff;
+        border: none;
+    }
+</style>
+
+<div class="container">
+    <div class="welcome-section">
+        <h1>Welcome, {{ user.first_name }}!</h1>
+        <p>Find your new furry friend and give them a forever home.</p>
+    </div>
+
+    <div class="available-section">
+        <h2>Available Dogs</h2>
+        <div class="row">
+            {% for dog in dogs %}
+            <div class="col-md-4 mb-4">
+                <div class="card pet-card">
+                    <img src="{{ dog.image }}" class="card-img-top" alt="{{ dog.name }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ dog.name }}</h5>
+                        <p class="card-text">{{ dog.description }}</p>
+                        <a href="{{ url_for('pet_detail', pet_type='dog', pet_id=dog.id) }}" class="btn btn-primary adopt-btn">Adopt {{ dog.name }}</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <h2>Available Cats</h2>
+        <div class="row">
+            {% for cat in cats %}
+            <div class="col-md-4 mb-4">
+                <div class="card pet-card">
+                    <img src="{{ cat.image }}" class="card-img-top" alt="{{ cat.name }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ cat.name }}</h5>
+                        <p class="card-text">{{ cat.description }}</p>
+                        <a href="{{ url_for('pet_detail', pet_type='cat', pet_id=cat.id) }}" class="btn btn-primary adopt-btn">Adopt {{ cat.name }}</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
